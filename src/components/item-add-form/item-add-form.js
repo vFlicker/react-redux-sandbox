@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './item-add-form.css';
 
-const ItemAddForm = ({ onAddClick }) => {
-  return (
-    <form className="bottom-panel d-flex">
-      <input type="text" className="form-control new-todo-label" placeholder="What needs to be done" />
-      <button
-        className="btn btn-outline-secondary"
-        onClick={onAddClick}
-      >
-        Add
-      </button>
-    </form>
-  );
-};
+export default class ItemAddForm extends Component {
+  state = {
+    label: ''
+  }
 
-export default ItemAddForm;
+  onLabelChange = (evt) => {
+    this.setState({
+      label: evt.target.value
+    })
+  };
+
+  onSubmit = (evt) => {
+    evt.preventDefault();
+    this.props.onTodoSubmit(this.state.label);
+  };
+
+  render() {
+    return (
+      <form
+        className="bottom-panel d-flex"
+        onSubmit={this.onSubmit}
+      >
+        <input
+          type="text"
+          className="form-control new-todo-label"
+          placeholder="What needs to be done"
+          onChange={this.onLabelChange}
+        />
+        <button
+          className="btn btn-outline-secondary"
+        >
+          Add
+        </button>
+      </form>
+    );
+  }
+};

@@ -26,10 +26,8 @@ export default class App extends Component {
     }
   }
 
-  addTodo = (evt) => {
-    evt.preventDefault();
-
-    const newTodo = this.createTodoItem('New item');
+  addTodo = (label) => {
+    const newTodo = this.createTodoItem(label);
 
     this.setState(({ todos }) => {
       return {
@@ -92,7 +90,7 @@ export default class App extends Component {
           onToggleDoneClick={this.toggleDoneTodo}
           onToggleImportantClick={this.toggleImportantTodo}
         />
-        <ItemAddForm onAddClick={this.addTodo} />
+        <ItemAddForm onTodoSubmit={this.addTodo} />
       </div>
     );
   }
