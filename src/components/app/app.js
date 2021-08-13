@@ -16,6 +16,7 @@ export default class App extends Component {
       this.createTodoItem('Drink coffee'),
       this.createTodoItem('Learn React'),
     ],
+    searchText: '',
     currentFilter: FilterType.ALL,
   };
 
@@ -51,6 +52,15 @@ export default class App extends Component {
     }
   }
 
+  getSearchedTodo = (todos, searchText) => {
+    if (searchText.length === 0) {
+      return todos;
+    }
+
+    return todos.filter((todo) => todo.label
+      .toLowerCase()
+      .startsWith(searchText.toLowerCase()));
+  }
 
   onDeleteClick = (id) => {
     this.setState(({ todos }) => {
@@ -63,6 +73,10 @@ export default class App extends Component {
   onFilterChange = (currentFilter) => {
     this.setState({ currentFilter });
   };
+
+  onSearchChange = (searchText) => {
+    this.setState({ searchText });
+  }
 
   onTodoSubmit = (label) => {
     const newTodo = this.createTodoItem(label);
@@ -91,8 +105,11 @@ export default class App extends Component {
   };
 
   render() {
-    const { todos, currentFilter } = this.state;
-    const visibleItems = this.getFilteredTodo(todos, currentFilter);
+    const { todos, searchText, currentFilter } = this.state;
+    const visibleItems = this.getFilteredTodo(
+      this.getSearchedTodo(todos, searchText),
+      currentFilter
+    );
     const doneCount = visibleItems.filter((todo) => todo.done).length;
     const todoCount = visibleItems.length - doneCount;
 
@@ -100,6 +117,7 @@ export default class App extends Component {
       <div className="todo-app">
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="search-panel d-flex">
+          <SearchPanel onSearchChange={this.onSearchChange} />
           <ItemStatusFilter
             onFilterChange={this.onFilterChange}
             filter={currentFilter}
