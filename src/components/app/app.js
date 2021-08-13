@@ -26,24 +26,6 @@ export default class App extends Component {
     }
   }
 
-  addTodo = (label) => {
-    const newTodo = this.createTodoItem(label);
-
-    this.setState(({ todos }) => {
-      return {
-        todos: [...todos, newTodo]
-      }
-    });
-  };
-
-  deleteTodo = (id) => {
-    this.setState(({ todos }) => {
-      return {
-        todos: todos.filter((todo) => !(todo.id === id))
-      }
-    });
-  };
-
   toggleProperty(array, id, propName) {
     const index = array.findIndex((todo) => todo.id === id);
     const oldTodo = array[index];
@@ -56,7 +38,26 @@ export default class App extends Component {
     ];
   }
 
-  toggleDoneTodo = (id) => {
+
+  onDeleteClick = (id) => {
+    this.setState(({ todos }) => {
+      return {
+        todos: todos.filter((todo) => !(todo.id === id))
+      }
+    });
+  };
+
+  onTodoSubmit = (label) => {
+    const newTodo = this.createTodoItem(label);
+
+    this.setState(({ todos }) => {
+      return {
+        todos: [...todos, newTodo]
+      }
+    });
+  };
+
+  onToggleDoneClick = (id) => {
     this.setState(({ todos }) => {
       return {
         todos: this.toggleProperty(todos, id, 'done')
@@ -64,7 +65,7 @@ export default class App extends Component {
     });
   };
 
-  toggleImportantTodo = (id) => {
+  onToggleImportantClick = (id) => {
     this.setState(({ todos }) => {
       return {
         todos: this.toggleProperty(todos, id, 'important')
@@ -85,12 +86,11 @@ export default class App extends Component {
           <ItemStatusFilter />
         </div>
         <TodoList
-          todos={todos}
-          onDeleteClick={this.deleteTodo}
-          onToggleDoneClick={this.toggleDoneTodo}
-          onToggleImportantClick={this.toggleImportantTodo}
+          onDeleteClick={this.onDeleteClick}
+          onToggleDoneClick={this.onToggleDoneClick}
+          onToggleImportantClick={this.onToggleImportantClick}
         />
-        <ItemAddForm onTodoSubmit={this.addTodo} />
+        <ItemAddForm onTodoSubmit={this.onTodoSubmit} />
       </div>
     );
   }
