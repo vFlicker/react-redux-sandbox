@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './hook-switcher.css';
+import { MyConsumer} from '../my-context';
 
 const HookSwitcher = () => {
   const DEFAULT_SIZE = 20;
@@ -53,7 +54,15 @@ const HookSwitcher = () => {
         </button>
       </div>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, veritatis?</p>
+      <MyConsumer>
+        { (value) => {
+          return (
+            <p>{value}</p>
+          )
+        } }
+      </MyConsumer>
+
+
     </div>
   );
 };
