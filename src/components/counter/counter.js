@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PlanetInfo from '../planet-info';
 import './counter.css';
 
 const Counter = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
   const [visible, setVisible] = useState(true);
 
   const onCounterButtonClick = () => {
@@ -21,7 +22,7 @@ const Counter = () => {
     ? <>
       <button className="btn btn-success mr-2" onClick={onCounterButtonClick}>+</button>
       <button className="btn btn-danger" onClick={onHideButtonClick}>Hide</button>
-      <HookCounter value={value} />
+      <PlanetInfo id={value} />
     </>
     : <button className="btn btn-success" onClick={onShowButtonClick}>Show</button>;
 
@@ -31,19 +32,6 @@ const Counter = () => {
       {content}
     </div>
   )
-}
-
-const HookCounter = ({ value }) => {
-  useEffect(() => {
-    console.log('mount')
-    return () => console.log('unmount');
-  }, []);
-
-  useEffect(() => {
-    console.log('update')
-  });
-
-  return <p>{value}</p>;
 }
 
 export default Counter;
