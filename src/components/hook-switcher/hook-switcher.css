@@ -1,0 +1,21 @@
+.switcher {
+  padding: 10px;
+}
+
+.switcher--light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.switcher--dark {
+  background-color: #1c2631;
+  color: #ffffff;
+}
+
+.switcher__buttons:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.switcher__button:not(:last-child) {
+  margin-right: 10px;
+}
