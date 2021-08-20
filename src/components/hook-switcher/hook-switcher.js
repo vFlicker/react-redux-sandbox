@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './hook-switcher.css';
-import { MyConsumer} from '../my-context';
+import MyContext from '../my-context';
 
 const HookSwitcher = () => {
   const DEFAULT_SIZE = 20;
 
   const [ color, setColor ] = useState('light')
   const [ fontSize, setFontSize ] = useState(DEFAULT_SIZE);
+  const text = useContext(MyContext);
 
   const onLightButtonClick = () => {
     setColor('light');
@@ -54,15 +55,7 @@ const HookSwitcher = () => {
         </button>
       </div>
 
-      <MyConsumer>
-        { (value) => {
-          return (
-            <p>{value}</p>
-          )
-        } }
-      </MyConsumer>
-
-
+      <p>{text}</p>
     </div>
   );
 };

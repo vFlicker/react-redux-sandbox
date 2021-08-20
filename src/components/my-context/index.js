@@ -1,9 +1,6 @@
-import {
-  MyProvider,
-  MyConsumer
-} from './my-context';
+import React from 'react';
 
-export {
-  MyProvider,
-  MyConsumer
-};
+const MyContext = React.createContext();
+
+export default MyContext;
+
