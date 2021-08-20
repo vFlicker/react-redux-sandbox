@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './counter.css';
 
 const Counter = () => {
@@ -21,7 +21,6 @@ const Counter = () => {
     ? <>
       <button className="btn btn-success mr-2" onClick={onCounterButtonClick}>+</button>
       <button className="btn btn-danger" onClick={onHideButtonClick}>Hide</button>
-      <ClassCounter value={value} />
       <HookCounter value={value} />
     </>
     : <button className="btn btn-success" onClick={onShowButtonClick}>Show</button>;
@@ -34,30 +33,15 @@ const Counter = () => {
   )
 }
 
-class ClassCounter extends Component {
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
-  componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate');
-  }
-
-  componentWillUnmount() {
-    console.log('componentDidUpdate');
-  }
-
-  render() {
-    return <p>{this.props.value}</p>;
-  }
-}
-
 const HookCounter = ({ value }) => {
   useEffect(() => {
-    console.log('update')
+    console.log('mount')
+    return () => console.log('unmount');
+  }, []);
 
-    return () => console.log('clear');
-  }, [ value ]);
+  useEffect(() => {
+    console.log('update')
+  });
 
   return <p>{value}</p>;
 }
