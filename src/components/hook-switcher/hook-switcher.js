@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import './hook-switcher.css';
 import MyContext from '../my-context';
+import './hook-switcher.css';
 
 const HookSwitcher = () => {
   const DEFAULT_SIZE = 20;
@@ -29,6 +29,9 @@ const HookSwitcher = () => {
     <div
       className={`switcher switcher--${color}`}
       style={ { fontSize: `${fontSize}px` } }>
+
+      <h2 className="mb-3">Hook switcher</h2>
+
       <div className="switcher__buttons">
         <button
           className="btn btn-light switcher__button"
