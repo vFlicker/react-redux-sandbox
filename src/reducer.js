@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, bindActionCreators } from 'redux';
 import { inc, dec, rnd } from './actions';
 
 const reducer = (state = 0, action) => {
@@ -20,15 +20,11 @@ const reducer = (state = 0, action) => {
 const store = createStore(reducer);
 const { dispatch } = store;
 
-const bindActionCreator = (creator, dispatch) => (...args) => {
-  dispatch(creator(...args));
-};
-
-const incDispatch = bindActionCreator(inc, dispatch);
-
-const decDispatch = bindActionCreator(dec, dispatch);
-
-const rndDispatch = bindActionCreator(rnd, dispatch);
+const { incDispatch, decDispatch, rndDispatch } = bindActionCreators({
+  incDispatch: inc,
+  decDispatch: dec,
+  rndDispatch: rnd
+}, dispatch);
 
 document
   .getElementById('inc')
@@ -52,5 +48,3 @@ const update = () => {
 };
 
 store.subscribe(update);
-
-
