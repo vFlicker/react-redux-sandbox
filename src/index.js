@@ -1,34 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, bindActionCreators } from 'redux';
-import App from './app';
-import * as actions from './actions';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import reducer from './reducer';
+import App from './components/app';
 import './index.css';
 
 const store = createStore(reducer);
-const { dispatch } = store;
 
-const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
-
-const update = () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App
-        counter={store.getState()}
-        inc={inc}
-        dec={dec}
-        rnd={() => {
-          const payload = Math.floor(Math.random() * 10);
-          rnd(payload);
-        }}
-      />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-};
-
-update();
-
-store.subscribe(update);
-
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
