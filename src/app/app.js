@@ -1,6 +1,10 @@
-function App() {
+import React from 'react';
+import Counter from '../counter';
+import './app.css';
+
+const App = (props) => {
   return (
-    <h1>Redux Sandbox</h1>
+    <Counter { ...props } />
   );
 }
 
