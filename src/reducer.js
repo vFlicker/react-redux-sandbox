@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { inc, dec, rnd } from './actions';
 
 const reducer = (state = 0, action) => {
   switch (action.type) {
@@ -19,21 +20,15 @@ const reducer = (state = 0, action) => {
 const store = createStore(reducer);
 const { dispatch } = store;
 
-const inc = () => ({ type: 'INC' });
-const dec = () => ({ type: 'DEC' });
-const rnd = (payload) => ({ type: 'RND', payload });
-
-const incDispatch = () => {
-  dispatch(inc());
+const bindActionCreator = (creator, dispatch) => (...args) => {
+  dispatch(creator(...args));
 };
 
-const decDispatch = () => {
-  dispatch(dec());
-};
+const incDispatch = bindActionCreator(inc, dispatch);
 
-const rndDispatch = (payload) => {
-  dispatch(rnd(payload));
-};
+const decDispatch = bindActionCreator(dec, dispatch);
+
+const rndDispatch = bindActionCreator(rnd, dispatch);
 
 document
   .getElementById('inc')
